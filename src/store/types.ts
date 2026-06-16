@@ -81,3 +81,17 @@ export interface DebriefRequest {
   portfolioSnapshots:  string
   missedOpportunities: string
 }
+
+export interface GameStateDTO {
+  gameId:         string
+  players:        Player[]
+  prices:         Record<string, number>
+  prevPrices:     Record<string, number>
+  bankruptAssets: Record<string, boolean>
+  quarter:        number
+  year:           number
+  phase:          GamePhase
+  currentEvent:   MarketEvent | null
+  log:            LogEntry[]
+  gameOver:       boolean
+}
