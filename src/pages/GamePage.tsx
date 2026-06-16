@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { useGameStore } from '../store/gameStore'
 import { PortfolioAnalysisDrawer } from '../components/portfolio/PortfolioAnalysisDrawer'
 
@@ -43,7 +43,7 @@ export function GamePage() {
   const human  = players[0]
   const sorted = [...players].sort((a,b) => b.netWorth - a.netWorth)
 
-  if (!human) { navigate('/'); return null }
+  if (!human) return <Navigate to="/" replace />
 
   function chgPct(id: string) {
     const c = prices[id], p = prevPrices[id]
