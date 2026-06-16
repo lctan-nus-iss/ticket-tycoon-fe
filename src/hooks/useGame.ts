@@ -32,7 +32,7 @@ export function useGame() {
     setLoading(true)
     try {
       const { data } = await api.post<GameStateDTO>('/game/start', {
-        humanName, aiArchetypeIds: aiIds,
+        humanPlayers: [humanName], aiArchetypeIds: aiIds,
       })
       setState(data.gameId, data)
       navigate('/game')
