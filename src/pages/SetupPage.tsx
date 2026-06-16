@@ -77,11 +77,18 @@ export function SetupPage() {
           </div>
         </div>
 
-        <button onClick={start}
-          style={{ width:'100%', background:'#2D6A5A', color:'#fff', border:'none',
-            borderRadius:8, padding:14, fontSize:15, fontWeight:700, cursor:'pointer',
+        {error && (
+          <div style={{ color:'#C0392B', fontSize:13, marginBottom:'0.5rem',
+            background:'#FBEAEA', border:'1px solid #F5C6C6', borderRadius:8, padding:'10px 14px' }}>
+            {error}
+          </div>
+        )}
+        <button onClick={start} disabled={loading}
+          style={{ width:'100%', background: loading ? '#8A826E' : '#2D6A5A', color:'#fff', border:'none',
+            borderRadius:8, padding:14, fontSize:15, fontWeight:700,
+            cursor: loading ? 'not-allowed' : 'pointer',
             letterSpacing:'.02em', transition:'background .15s' }}>
-          Start Game
+          {loading ? 'Starting…' : 'Start Game'}
         </button>
       </div>
     </div>

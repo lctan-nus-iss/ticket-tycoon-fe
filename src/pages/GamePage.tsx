@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGameStore } from '../store/gameStore'
+import { useGame } from '../hooks/useGame'
 import { PortfolioAnalysisDrawer } from '../components/portfolio/PortfolioAnalysisDrawer'
 
 function fmt(n: number) {
@@ -37,8 +38,9 @@ export function GamePage() {
     quarter, year, phase, currentEvent, eventLoading, log,
     selectedAsset, actionTab,
     buyAsset, sellAsset, addLog, calcNetWorths, payIncome,
-    advanceQuarter, setSelectedAsset, setActionTab,
+    advanceQuarter: advanceLocal, setSelectedAsset, setActionTab,
   } = useGameStore()
+  const { advanceQuarter, buy, sell, loading: apiLoading } = useGame()
 
   const human  = players[0]
   const sorted = [...players].sort((a,b) => b.netWorth - a.netWorth)
@@ -87,10 +89,12 @@ export function GamePage() {
             </div>
           ))}
           <button
-            onClick={() => { /* trigger quarter advance with event generation */ }}
-            style={{ gridColumn:'1/-1', background:'#2D6A5A', color:'#fff', border:'none',
-              borderRadius:8, padding:10, fontSize:14, fontWeight:700, cursor:'pointer' }}>
-            Advance Quarter
+            onClick={advanceQuarter}
+            disabled={apiLoading}
+            style={{ gridColumn:'1/-1', background: apiLoading ? '#8A826E' : '#2D6A5A', color:'#fff', border:'none',
+              borderRadius:8, padding:10, fontSize:14, fontWeight:700,
+              cursor: apiLoading ? 'not-allowed' : 'pointer' }}>
+            {apiLoading ? 'Processing…' : 'Advance Quarter'}
           </button>
         </div>
       </div>
