@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 import { ALL_ASSETS, AMAP } from '../data/assets'
-import type { Player, GamePhase, MarketEvent, LogEntry, TradeAction } from './types'
+import type { Player, GamePhase, MarketEvent, LogEntry, TradeAction, GameStateDTO } from './types'
 
 interface GameState {
+  gameId:         string
   players:        Player[]
   prices:         Record<string, number>
   prevPrices:     Record<string, number>
@@ -18,6 +19,7 @@ interface GameState {
   actionTab:      'buy' | 'sell' | 'hold'
 
   // Actions
+  setGameState:   (state: GameStateDTO) => void
   initGame:       (humanName: string, aiIds: string[]) => void
   setEventLoading:(loading: boolean) => void
   setCurrentEvent:(event: MarketEvent | null) => void
@@ -38,6 +40,7 @@ const BASE_PRICES: Record<string, number> = {}
 ALL_ASSETS.forEach(a => { BASE_PRICES[a.id] = a.price })
 
 export const useGameStore = create<GameState>((set, get) => ({
+  gameId:         '',
   players:        [],
   prices:         { ...BASE_PRICES },
   prevPrices:     { ...BASE_PRICES },
@@ -52,6 +55,21 @@ export const useGameStore = create<GameState>((set, get) => ({
   selectedAsset:  null,
   actionTab:      'buy',
 
+  setGameState: (state) => set({
+    gameId:         state.gameId,
+    players:        state.players ?? [],
+    prices:         state.prices ?? { ...BASE_PRICES },
+    prevPrices:     state.prevPrices ?? state.prices ?? { ...BASE_PRICES },
+    bankruptAssets: state.bankruptAssets ?? {},
+    quarter:        state.quarter,
+    year:           state.year,
+    phase:          state.phase,
+    currentEvent:   state.currentEvent,
+    eventLoading:   false,
+    log:            state.log ?? [],
+    gameOver:       state.gameOver,
+  }),
+
   initGame: (humanName, aiIds) => {
     const prices = { ...BASE_PRICES }
     const players: Player[] = [
@@ -59,7 +77,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         cash: 100000, portfolio: {}, netWorth: 100000, totalIncome: 0 }
     ]
     // AI players initialised with their archetype allocations
-    set({ players, prices, prevPrices: { ...prices },
+    set({ gameId: '', players, prices, prevPrices: { ...prices },
           bankruptAssets: {}, quarter: 1, year: 1, phase: 'action',
           currentEvent: null, eventLoading: false, log: [],
           gameOver: false, selectedAsset: null })

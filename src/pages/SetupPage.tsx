@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useGameStore } from '../store/gameStore'
+import { useGame } from '../hooks/useGame'
 
 const AI_ARCHETYPES = [
   { id:'indexer',    name:'The Indexer',    style:'Passive, globally diversified',  color:'#2D6A5A' },
@@ -15,15 +14,14 @@ const AI_ARCHETYPES = [
 export function SetupPage() {
   const [name,     setName]     = useState('Player 1')
   const [selected, setSelected] = useState(new Set(['indexer','speculator','income']))
-  const { initGame } = useGameStore()
-  const navigate = useNavigate()
+  const { session, startGame } = useGame()
+  const { loading, error } = session
 
   const toggle = (id: string) =>
     setSelected(prev => { const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s })
 
   const start = () => {
-    initGame(name.trim() || 'Player 1', [...selected])
-    navigate('/game')
+    startGame(name.trim() || 'Player 1', [...selected])
   }
 
   return (
@@ -88,7 +86,7 @@ export function SetupPage() {
             borderRadius:8, padding:14, fontSize:15, fontWeight:700,
             cursor: loading ? 'not-allowed' : 'pointer',
             letterSpacing:'.02em', transition:'background .15s' }}>
-          {loading ? 'Starting…' : 'Start Game'}
+          {loading ? 'Starting...' : 'Start Game'}
         </button>
       </div>
     </div>
