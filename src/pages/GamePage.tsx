@@ -342,7 +342,7 @@ export function GamePage() {
           {/* Cash & Income */}
           <div style={{ background:'#FDFAF4', border:'1px solid #E2D9C8', borderRadius:14,
             overflow:'hidden', boxShadow:'0 1px 3px rgba(0,0,0,.08)' }}>
-            <div style={{ padding:'1rem 1.1rem', borderBottom:'1px solid #E2D9C8' }}>
+             <div style={{ padding:'1rem 1.1rem', borderBottom:'1px solid #E2D9C8' }}>
               <div style={{ fontSize:10, fontWeight:700, letterSpacing:'.1em',
                 textTransform:'uppercase', color:'#8A826E', marginBottom:4 }}>
                 Available Cash
@@ -417,9 +417,12 @@ export function GamePage() {
                     textTransform:'uppercase', color:'#8A826E' }}>
                     Cash available
                   </span>
-                  <span style={{ fontSize:14, fontWeight:800, color:'#2D6A5A' }}>
+
+                   <span style={{ fontSize: 14, fontWeight: 800, color: '#2D6A5A' }}>
                     {fmt(human.cash)}
                   </span>
+                
+             
                 </div>
               )}
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:6, marginBottom:12 }}>
@@ -536,10 +539,10 @@ export function GamePage() {
                 </div>
               </div>
               <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-                <span style={{ fontSize:11, fontWeight:700, color:'#2D6A5A' }}>
+{/*                  <span style={{ fontSize:11, fontWeight:700, color:'#2D6A5A' }}>
                   {fmt(human.cash)} CASH
                 </span>
-                <button
+ */} *               <button
                   onClick={() => setDrawerOpen(true)}
                   style={{ fontSize:11, fontWeight:700, color:'#2D6A5A',
                     background:'#EAF3EF', border:'1px solid #C2DDD6', borderRadius:20,
