@@ -542,7 +542,7 @@ export function GamePage() {
 {/*                  <span style={{ fontSize:11, fontWeight:700, color:'#2D6A5A' }}>
                   {fmt(human.cash)} CASH
                 </span>
- */} *               <button
+ */}            <button
                   onClick={() => setDrawerOpen(true)}
                   style={{ fontSize:11, fontWeight:700, color:'#2D6A5A',
                     background:'#EAF3EF', border:'1px solid #C2DDD6', borderRadius:20,
