@@ -16,7 +16,7 @@ interface GameState {
   log:            LogEntry[]
   gameOver:       boolean
   selectedAsset:  string | null
-  actionTab:      'buy' | 'sell' | 'hold'
+  actionTab:      'buy' | 'sell'
 
   // Actions
   setGameState:   (state: GameStateDTO) => void
@@ -33,7 +33,7 @@ interface GameState {
   addLog:         (type: string, msg: string) => void
   setPhase:       (phase: GamePhase) => void
   setSelectedAsset:(id: string | null) => void
-  setActionTab:   (tab: 'buy' | 'sell' | 'hold') => void
+  setActionTab:   (tab: 'buy' | 'sell') => void
 }
 
 const BASE_PRICES: Record<string, number> = {}
