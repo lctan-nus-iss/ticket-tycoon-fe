@@ -422,8 +422,8 @@ export function GamePage() {
                   </span>
                 </div>
               )}
-              <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:6, marginBottom:12 }}>
-                {(['buy','sell','hold'] as const).map(tab => (
+              <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:6, marginBottom:12 }}>
+                {(['buy','sell'] as const).map(tab => (
                   <button key={tab}
                     onClick={() => setActionTab(tab)}
                     style={{ background: actionTab === tab ? '#2D6A5A' : '#F5F0E8',
@@ -511,11 +511,7 @@ export function GamePage() {
                     {apiLoading ? 'Submitting...' : `Sell ${sellPct}%`}
                   </button>
                 </>
-              ) : (
-                <div style={{ fontSize:13, color:'#8A826E', lineHeight:1.6 }}>
-                  Holding selected. No transaction will be submitted.
-                </div>
-              )}
+              ) : null}
 
               {tradeMessage && (
                 <div style={{ color:'#C0392B', fontSize:12, marginTop:10,
